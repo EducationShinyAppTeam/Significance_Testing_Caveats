@@ -4,6 +4,16 @@ library(shinyBS)
 library(ggplot2)
 library(boastUtils)
 
+## App Meta Data----------------------------------------------------------------
+APP_TITLE  <<- "NHST Canveats"
+APP_DESCP  <<- paste(
+  "This app explores three caveats to null hypothesis significance testing.
+  Each of these caveats holds true regardless of what type of hypothesis test 
+  (e.g., one/two sample proportions, one/two sample location, independence, etc.) 
+  you're conducting. "
+)
+## End App Meta Data------------------------------------------------------------
+
 dashboardPage(
   skin = "purple",
   #Title
@@ -49,7 +59,8 @@ dashboardPage(
         h1("NHST Caveats"),
         p(
           "In this app you will explore three important issues to keep in mind when you are engaged in null hypothesis significance testing (NHST). Null hypothesis tests are useful tools when you want to confirm an underlying model using your data. However, just as with every tool, you need to know how to use them properly and be aware of any limitations or issues with their use.  This app explores three caveats to null hypothesis significance testing. Each of these caveats holds true regardless of what type of hypothesis test (e.g., one/two sample proportions, one/two sample location, independence, etc.) you're conducting. This app will help you understand:"
-        ),
+        
+          ),
         
         tags$ol(
           tags$li(
@@ -76,12 +87,12 @@ dashboardPage(
           ),
           tags$li(
             "Download the hard copy",
-            #  actionButton(
-            #    inputId = "ap1",
-            #    label = "Activity Packet",
-            #    icon = icon("cloud-download"),
-            #    onclick = "window.open('../../ActivityPackets/Caveats/')"
-            #  ),
+             # actionButton(
+             #   inputId = "ap1",
+             #   label = "Activity Packet",
+             #   icon = icon("cloud-download"),
+             #   onclick = "window.open('../../ActivityPackets/Caveats/')"
+             # ),
             " or launch the online version your instructor gave you."
           ),
           tags$li(
@@ -219,6 +230,12 @@ dashboardPage(
             8,
             h3("Test Result"),
             plotOutput("pplotMTC"),
+            tags$script(HTML(
+              "$(document).ready(function() {
+  document.getElementById('pplotMTC').setAttribute('aria-label',
+  `This plot displays the change of the number of statistically significant tests when we increase the number of tests`)
+  })"
+            )),
             bsPopover(
               id = "pplotMTC",
               title = "Investigate!",
@@ -281,6 +298,12 @@ dashboardPage(
             8,
             h3("Test Result"),
             plotOutput("pplotLSC"),
+            tags$script(HTML(
+              "$(document).ready(function() {
+  document.getElementById('pplotLSC').setAttribute('aria-label',
+  `This plot displays the change of the number of statistically significanr tests as we increase sample size. (Large)`)
+  })"
+            )),
             bsPopover(
               id = "pplotLSC",
               title = "Investigate!",
@@ -343,6 +366,12 @@ dashboardPage(
             8,
             h3("Test Result"),
             plotOutput("pplotSSC"),
+            tags$script(HTML(
+              "$(document).ready(function() {
+  document.getElementById('pplotSSC').setAttribute('aria-label',
+  `This plot displays the change of the number of statistically significant tests as we increase sample size. (Small)`)
+  })"
+            )),
             bsPopover(
               id = "pplotSSC",
               title = "Investigate!",
