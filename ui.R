@@ -5,7 +5,7 @@ library(ggplot2)
 library(boastUtils)
 
 ## App Meta Data----------------------------------------------------------------
-APP_TITLE  <<- "NHST Canveats"
+APP_TITLE  <<- "Significance Testing Canveats"
 APP_DESCP  <<- paste(
   "This app explores three caveats to null hypothesis significance testing.
   Each of these caveats holds true regardless of what type of hypothesis test 
@@ -17,7 +17,7 @@ dashboardPage(
   skin = "purple",
   #Title
   dashboardHeader(
-    title ="NHST Canveats",
+    title ="Significance Testing Canveats",
     titleWidth = 250,
     tags$li(class = "dropdown",
             tags$a(href='https://shinyapps.science.psu.edu/',
@@ -29,7 +29,7 @@ dashboardPage(
     sidebarMenu(
       id = "tabs",
       menuItem("Overview", tabName = "over", icon = icon("dashboard")),
-      menuItem("Pre-requisites", tabName = "prereq", icon = icon("book")),
+      menuItem("Prerequisites", tabName = "prereq", icon = icon("book")),
       menuItem("Multiple Testing Caveat", tabName = "mtc", icon = icon("wpexplorer")),
       menuItem("Large Sample Caveat", tabName = "lsc", icon = icon("wpexplorer")),
       menuItem("Small Sample Caveat", tabName = "ssc", icon = icon("wpexplorer")),
@@ -55,10 +55,10 @@ dashboardPage(
       ),
       tabItem(
         tabName = "over",
-        h1("NHST Caveats"),
+        h1("Significance Testing Canveats"),
         p(
           "In this app you will explore three important issues to keep in mind 
-          when you are engaged in null hypothesis significance testing (NHST). 
+          when you are engaged in null hypothesis significance testing. 
           Null hypothesis tests are useful tools when you want to confirm an 
           underlying model using your data. However, just as with every tool, 
           you need to know how to use them properly and be aware of any limitations 
@@ -82,14 +82,15 @@ dashboardPage(
             "Large Sample Size Caveat: As you increase the size of your sample,
             you will call negligible differences (i.e., there is no practical difference) 
             significant. Explore the relationship between the size of your sample 
-            and the number of 'statistically significant' results when there is no
-            practical difference between groups."
+            and and the chance of getting a 'statistically significant' result
+            when there is no practical difference between groups."
           ),
           tags$li(
             "Small Sample Size Caveat:  As you decrease the size of your sample,
             you will call even large practical differences insignificant.
-            Explore the relationship between the size of your sample and the number
-            of 'statistically significant' results when there is practical difference between groups."
+            Explore the relationship between the size of your sample and the 
+            chance of getting a 'statistically significant' result when there 
+            is practical difference between groups."
           )
         ),
         br(),
@@ -102,18 +103,7 @@ dashboardPage(
                 bsButton(inputId = "prereqs", "Pre-requisites", icon("bolt"), size = "large",class = "circle grow"))
           ),
           tags$li(
-            "Download the hard copy",
-             # actionButton(
-             #   inputId = "ap1",
-             #   label = "Activity Packet",
-             #   icon = icon("cloud-download"),
-             #   onclick = "window.open('../../ActivityPackets/Caveats/')"
-             # ),
-            " or launch the online version your instructor gave you."
-          ),
-          tags$li(
-            "Follow the prompts and answer the questions as you investigate the 
-            three caveats. When you're ready to begin, click to start with the 
+            "When you're ready to begin, click to start with the 
             Multiple Testing Caveat, or use the left-hand menu to jump to a particular caveat.",
             div(style = "text-align: center", 
                 bsButton(inputId = "explore", "Explore", icon("bolt"), size = "large",class = "circle grow"))
@@ -125,23 +115,21 @@ dashboardPage(
           "This version of the app was developed and coded by Neil J. Hatfield 
           and was based upon the work of David Robinson, then maintained by Zhuolin Luo.",
           br(),
-          "Text content was written by Neil J. Hatfield.",
-          br(),
-          "The Activity Packet (student and instructor versions) were developed 
-          by Neil J. Hatfield, based upon prior notes written by Denis Pearl."),
+          "Text content was written by Neil J. Hatfield."
+          ),
         br(),
         p("We would like to extend a special thanks to the Shiny Program Students.",
           br(),
           br(),
           br(),
-          div(class = 'updated', "Last Update: 07/31/20 by ZL."))
+          div(class = 'updated', "Last Update: 08/28/20 by ZL."))
       ),
       
       #Pre-requisites Page
       tabItem(
         tabName = "prereq",
         withMathJax(),
-        h2("Pre-requisite Meanings"),
+        h2("Prerequisite Meanings"),
         p(
           "In order to get the most out of this applet, you need to already be 
           familiar with the following concepts. Write down how you think about 
@@ -200,32 +188,6 @@ dashboardPage(
           as the 'Level of Significance'."
         ),
         box(
-          title = strong("Type I Error"),
-          status = "primary",
-          collapsible = TRUE,
-          collapsed = TRUE,
-          width = '100%',
-          "When you do null hypothesis significance testing, you will have to 
-          make a decision about whether your sample data are consistent with the 
-          model in your null hypothesis. Any time you make a decision, you can 
-          make a mistake. A person makes a Type I Error when they decide that 
-          their data are inconsistent with the null hypothesis's model 
-          (i.e., reject the null hypothesis), when in actuality, the null 
-          hypothesis's model better describes the underlying phenomenon when 
-          compared to the alternative hypothesis."
-        ),
-        box(
-          title = strong("Type II Error"),
-          status = "primary",
-          collapsible = TRUE,
-          collapsed = TRUE,
-          width = '100%',
-          "In addition to Type I Errors, you can also make what we refer to as 
-          a Type II Error.  This occurs when you make the decision that your data 
-          are consistent with the null hypothesis's model (i.e., fail to reject 
-          the null hypothesis), but this model does not describe the underlying phenomenon."
-        ),
-        box(
           title = strong("Statistically Significant Result"),
           status = "primary",
           collapsible = TRUE,
@@ -271,7 +233,7 @@ dashboardPage(
         p(
           "Underlying this simulation is the notion that the null hypotheis 
           is true. Thus, any p-value that is less than or equal to \\(\\alpha\\) 
-          would lead a researcher to claim statistical significance and make a Type I error."
+          would lead a researcher to claim statistical significance."
         ),
         p(
           "Use the controls to explore the relationship that exists between the 
@@ -339,29 +301,24 @@ dashboardPage(
         withMathJax(),
         h2("The Large Sample Caveat"),
         p(
-          "In this portion, you'll explore the relationship between the size of 
-          the samples used in a hypothesis test and the number of results that 
-          would be declared as 'statistically significant'. You are able to control 
-          three aspects: 1) the actual difference between two groups that you don't 
-          see as showing any practical difference between them (i.e., a difference 
-          that is indistinguishable from zero), 2) the threshold for determining 
+          "There is no cure for the common cold caused by a rhinovirus, so medical 
+          advice is to get plenty of rest and drink clear liquids to stay hydrated. 
+          The duration of the disease then averages 9 days.  Suppose a researcher 
+          claims to have developed a medication that will shorten the average duration 
+          of a cold.  But if you had a cold you might consider shortening its duration
+          by a very small amount to be worthless. Here, you'll explore the relationship 
+          between the size of the samples used in a hypothesis test and the chance that
+          results would be declared as 'statistically significant'. You are able to
+          control three aspects: 1) the actual effect of the medication that you 
+          don't see as showing any practical difference from the normal situation 
+          (how much shorter a cold would last) , 2) the threshold for determining
           whether or not you would declare a test as 'statistically significant' 
-          (i.e., setting the value of \\(\\alpha\\)), and 3) the total sample size
-          used in the hypothesis test."
+          (i.e., setting the value of α), and 3) the total sample size used in the hypothesis test."
         ),
         p(
-          "The app will simulate 100 hypothesis tests using your selected samples
-          size (evenly divided between two groups). Further, the simulated data
-          values will reflect that while there is a numeric difference, that 
-          difference is one that you do not consider practical (i.e., inconsequential).  
-          For example, if you set the difference slider to 0.1, then if the actual
-          difference between the two groups was 0.1 units (or less) you would 
-          act as if the two groups were identical."
-        ),
-        p(
-          "Use the controls to explore the relationship that exists between 
-          the sample size used and the number of tests that would be declared
-          'statistically significant'."
+          "The app will simulate 100 hypothesis tests using your selected sample 
+          size. Use the controls to explore the relationship that exists between 
+          the sample size and the chance that a test would be declared 'statistically significant'."
         ),
         fluidRow(
           column(
@@ -369,7 +326,8 @@ dashboardPage(
             h3("Controls"),
             sliderInput(
               inputId = "lscDiff",
-              label = "Pick a difference you view as being indistinguishable from zero:",
+              label = "Pick how much shorter a cold might last that you would 
+              still consider worthless: (days)",
               min = 0,
               max = 0.2,
               value = 0.1,
@@ -418,8 +376,8 @@ dashboardPage(
           ": The points above the horizontal line are all p-values that exceed 
           your selected threshold. The points below or on the horizontal line are
           all p-values that are at or below your selected threshold.  
-          Keep in mind that you've stipulated that any actual difference between 
-          the two groups has no practical implication."
+          Keep in mind that you've stipulated that any actual effect of the medication 
+          has no practical implication."
         )
       ),
       
@@ -429,22 +387,24 @@ dashboardPage(
         withMathJax(),
         h2("The Small Sample Caveat"),
         p(
-          "In this portion, you'll continue to explore the relationship between 
-          the size of the samples used in a hypothesis test and the number of 
-          results that would be declared as 'statistically significant'. 
-          You are able to control three aspects: 1) the actual difference between two groups,
-          2) the threshold for determining whether or not you would declare a test as 
-          'statistically significant' (i.e., setting the value of \\(\\alpha\\)), and 
-          3) the total sample size used in the hypothesis test."
+          "There is no cure for the common cold caused by a rhinovirus, so medical
+          advice is to get plenty of rest and drink clear liquids to stay hydrated. 
+          The duration of the disease then averages 9 days.  Suppose a researcher 
+          claims to have developed a medication that will shorten the average duration
+          of a cold.  If you had a cold you might consider shortening its duration
+          by a good amount to be of practical importance. Here, you'll explore 
+          the relationship between the size of the samples used in a hypothesis 
+          test and the chance that results would be declared as 'statistically 
+          significant'. You are able to control three aspects: 1) the actual 
+          effect of the medication that you view as being important to detect, 
+          2) the threshold for determining whether or not you would declare a test
+          as 'statistically significant' (i.e., setting the value of α), and 3) 
+          the total sample size used in the hypothesis test."
         ),
         p(
-          "The app will simulate 100 hypothesis tests using your selected samples size 
-          (evenly divided between two groups). Further, the simulated data values 
-          will reflect an actual difference that you view as important to detect."
-        ),
-        p(
-          "Use the controls to explore the relationship that exists between the 
-          sample size used and the number of tests that would be declared 'statistically significant'."
+          "The app will simulate 100 hypothesis tests using your selected sample 
+          size. Use the controls to explore the relationship that exists between 
+          the sample size and the chance that a test would be declared 'statistically significant'."
         ),
         fluidRow(
           column(
@@ -452,9 +412,10 @@ dashboardPage(
             h3("Controls"),
             sliderInput(
               inputId = "sscDiff",
-              label = "Pick a difference you view as being important to detect:",
-              min = 0.5,
-              max = 2.5,
+              label = "Pick how much shorter a cold might last that you view as
+              being important to detect: (days)",
+              min = 1,
+              max = 5,
               value = 1,
               step = 0.05
             ),
@@ -499,8 +460,8 @@ dashboardPage(
           tags$em("Note"),
           ": The points above the horizontal line are all p-values that exceed
           your selected threshold. The points below or on the horizontal line are all p-values 
-          that are at or below your selected threshold.  Keep in mind that you've stipulated 
-          that there is practical difference between the two groups."
+          that are at or below your selected threshold.  Keep in mind that you've 
+          stipulated that the actual effect of the medication has practical importance."
         )
       ),
       tabItem(

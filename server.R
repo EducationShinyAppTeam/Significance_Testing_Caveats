@@ -79,7 +79,7 @@ shinyServer(function(input, output, session) {
         size = 3
       ) +
       geom_line(y = a1,
-                color = "#3EA39E",
+                color = "forestgreen",
                 size = 1) +
       ylim(0, 1) +
       labs(
@@ -142,7 +142,7 @@ shinyServer(function(input, output, session) {
         size = 3
       ) +
       geom_line(y = a2,
-                color = "#3EA39E",
+                color = "forestgreen",
                 size = 1) +
       ylim(0, 0.5) +
       labs(
@@ -201,7 +201,7 @@ shinyServer(function(input, output, session) {
         size = 3
       ) +
       geom_line(y = a3,
-                color = "#3EA39E",
+                color = "forestgreen",
                 size = 1) +
       ylim(0, 0.5) +
       labs(
