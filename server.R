@@ -5,15 +5,15 @@ library(ggplot2)
 shinyServer(function(input, output, session) {
   #Explore Button
   observeEvent(input$explore, {
-    updateTabItems(session, "tabs", "mtc")
+    updateTabItems(session, "pages", "mtc")
   })
   #Pre-req Button
   observeEvent(input$prereqs, {
-    updateTabItems(session, "tabs", "prereq")
+    updateTabItems(session, "pages", "prereq")
   })
   #Explore1 Button
   observeEvent(input$explore1, {
-    updateTabItems(session, "tabs", "mtc")
+    updateTabItems(session, "pages", "mtc")
   })
   
   nMTC <- reactive({
