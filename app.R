@@ -5,15 +5,6 @@ library(shinyBS)
 library(ggplot2)
 library(boastUtils)
 
-## App Meta Data----------------------------------------------------------------
-APP_TITLE <<- "Significance Testing Caveats"
-APP_DESCP <<- paste(
-  "This app explores three caveats to null hypothesis significance testing.
-  Each of these caveats holds true regardless of what type of hypothesis test
-  you're conducting."
-)
-## End App Meta Data------------------------------------------------------------
-
 # Global constants, functions, and data ----
 
 # Define the ui ----
