@@ -1,0 +1,18 @@
+Title: Significance Testing Caveats
+ShortName: Significance Testing Caveats
+Date: 2020-11-02
+Authors@R: c(
+    person("David", "Robinson", role = c("aut", "cre")),
+    person("Robert", "Carey", email = "rpc5102@psu.edu", role = c("ctb")),
+    person("Neil", "Hatfield", email = "njh5464@psu.edu", role = c("ctb"))
+  )
+Chapter: Statistical Inference
+Description: This app examines the distribution of p-values across samples to
+  illustrate three key caveats of significance testing (the multiple testing
+  caution; the large sample caution; and the small sample caution).
+DisplayMode: Normal
+URL: https://psu-eberly.shinyapps.io/Significance_Testing_Caveats
+BugReports: https://github.com/EducationShinyAppTeam/Significance_Testing_Caveats/issues
+License: CC BY-NC-SA 4.0
+Tags: simulation
+Type: Shiny
