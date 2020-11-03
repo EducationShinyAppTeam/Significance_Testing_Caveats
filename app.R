@@ -300,7 +300,7 @@ ui <- list(
                   min = 0,
                   max = 1000,
                   value = 10,
-                  step = 2
+                  step = 5
                 )
               )
             ),
@@ -390,10 +390,10 @@ ui <- list(
                 sliderInput(
                   inputId = "sscSize",
                   label = "Input a total sample size",
-                  min = 4,
+                  min = 0,
                   max = 250,
                   value = 250,
-                  step = 2
+                  step = 5
                 )
               )
             ),
@@ -470,7 +470,7 @@ ui <- list(
                   min = 0,
                   max = 500,
                   value = 5,
-                  step = 10
+                  step = 1
                 )
               )
             ),
