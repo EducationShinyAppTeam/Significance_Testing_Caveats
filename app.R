@@ -6,8 +6,8 @@ library(ggplot2)
 library(boastUtils)
 
 ## App Meta Data----------------------------------------------------------------
-APP_TITLE  <<- "Significance Testing Caveats"
-APP_DESCP  <<- paste(
+APP_TITLE <<- "Significance Testing Caveats"
+APP_DESCP <<- paste(
   "This app explores three caveats to null hypothesis significance testing.
   Each of these caveats holds true regardless of what type of hypothesis test
   you're conducting."
@@ -20,21 +20,26 @@ APP_DESCP  <<- paste(
 ui <- list(
   dashboardPage(
     skin = "purple",
-    #Header ----
+    # Header ----
     dashboardHeader(
-      title ="Significance Testing Caveats",
+      title = "Significance Testing Caveats",
       titleWidth = 250,
       tags$li(
         class = "dropdown",
-        tags$a(target = "_blank", icon("comments"),
-               href = "https://pennstate.qualtrics.com/jfe/form/SV_7TLIkFtJEJ7fEPz?appName=Significance_Testing_Caveats"
+        tags$a(
+          target = "_blank", icon("comments"),
+          href = "https://pennstate.qualtrics.com/jfe/form/SV_7TLIkFtJEJ7fEPz?appName=Significance_Testing_Caveats"
         )
       ),
-      tags$li(class = "dropdown",
-              tags$a(href='https://shinyapps.science.psu.edu/',
-                     icon("home")))
+      tags$li(
+        class = "dropdown",
+        tags$a(
+          href = "https://shinyapps.science.psu.edu/",
+          icon("home")
+        )
+      )
     ),
-    #Sidebar ----
+    # Sidebar ----
     dashboardSidebar(
       width = 250,
       sidebarMenu(
@@ -44,19 +49,19 @@ ui <- list(
         menuItem("Large Sample Caveat", tabName = "lsc", icon = icon("wpexplorer")),
         menuItem("Small Sample Caveat", tabName = "ssc", icon = icon("wpexplorer")),
         menuItem("Multiple Testing Caveat", tabName = "mtc", icon = icon("wpexplorer")),
-        menuItem("References",tabName = "Ref",icon = icon("leanpub"))
+        menuItem("References", tabName = "Ref", icon = icon("leanpub"))
       ),
-      #PSU logo
+      # PSU logo
       tags$div(
         class = "sidebar-logo",
         boastUtils::psu_eberly_logo("reversed")
       )
     ),
 
-    #Content within the tabs
+    # Content within the tabs
     dashboardBody(
       tabItems(
-        #Overview Page ----
+        # Overview Page ----
         tabItem(
           tabName = "overview",
           h1("Significance Testing Canveats"),
@@ -138,9 +143,10 @@ ui <- list(
             br(),
             br(),
             br(),
-            div(class = 'updated', "Last Update: 11/03/20 by NJH."))
+            div(class = "updated", "Last Update: 11/03/20 by NJH.")
+          )
         ),
-        #Pre-requisites Page ----
+        # Pre-requisites Page ----
         tabItem(
           tabName = "prereq",
           withMathJax(),
@@ -156,7 +162,7 @@ ui <- list(
             status = "primary",
             collapsible = TRUE,
             collapsed = TRUE,
-            width = '100%',
+            width = "100%",
             "In the Confirmatory Data Analysis tradition, null hypothesis
             significance tests (NHSTs) serve as a critical tool to confirm that
             a particular theoretical model describes our data and to make a
@@ -173,7 +179,7 @@ ui <- list(
             status = "primary",
             collapsible = TRUE,
             collapsed = TRUE,
-            width = '100%',
+            width = "100%",
             "The probability that our selected estimator takes on a value at
             least as extreme as what we observed given our null hypothesis. If
             we were to carry out our study infinitely many times and the null
@@ -188,7 +194,7 @@ ui <- list(
             status = "primary",
             collapsible = TRUE,
             collapsed = TRUE,
-            width = '100%',
+            width = "100%",
             "The p-value gives us the long-run relative frequency of our estimator
             taking on certain behavior given the null hypothesis's model. Using
             our sample, our estimator has taken on a specific value. Is this value
@@ -209,7 +215,7 @@ ui <- list(
             status = "primary",
             collapsible = TRUE,
             collapsed = TRUE,
-            width = '100%',
+            width = "100%",
             "When you conduct a null hypothesis significance test and the p-value
             is less than your threshold, you state your decision to reject the
             null hypothesis as a model for what's going on. We call this event
@@ -221,7 +227,7 @@ ui <- list(
             status = "primary",
             collapsible = TRUE,
             collapsed = TRUE,
-            width = '100%',
+            width = "100%",
             "Statistical significance only sends up a flag that there is something
             going on. Practical significance provides a way to measure the
             tangible impacts of the alternative model. Null hypothesis
@@ -234,14 +240,14 @@ ui <- list(
           div(
             style = "text-align: center;",
             bsButton(
-            inputId = "explore1",
-            label = "Explore",
-            icon = icon("bolt"),
-            size = "large"
+              inputId = "explore1",
+              label = "Explore",
+              icon = icon("bolt"),
+              size = "large"
             )
           )
         ),
-        #Large Sample Caveat Page ----
+        # Large Sample Caveat Page ----
         tabItem(
           tabName = "lsc",
           withMathJax(),
@@ -318,9 +324,11 @@ ui <- list(
               bsPopover(
                 id = "pplotLSC",
                 title = "Investigate!",
-                content = paste("What happens to the number of statistically",
-                                "significant tests as you increase your sample",
-                                "size?"),
+                content = paste(
+                  "What happens to the number of statistically",
+                  "significant tests as you increase your sample",
+                  "size?"
+                ),
                 placement = "top"
               )
             )
@@ -411,8 +419,10 @@ ui <- list(
               bsPopover(
                 id = "pplotSSC",
                 title = "Investigate!",
-                content = paste("What happens to the number of statistically",
-                                "significant tests as you decrease the sample size?"),
+                content = paste(
+                  "What happens to the number of statistically",
+                  "significant tests as you decrease the sample size?"
+                ),
                 placement = "top"
               )
             )
@@ -488,9 +498,11 @@ ui <- list(
               bsPopover(
                 id = "pplotMTC",
                 title = "Investigate!",
-                content = paste("What happens to the number of statistically",
-                                "significant tests when you increase the number",
-                                "of tests?"),
+                content = paste(
+                  "What happens to the number of statistically",
+                  "significant tests when you increase the number",
+                  "of tests?"
+                ),
                 placement = "top"
               )
             )
@@ -549,14 +561,15 @@ ui <- list(
 
 # Define the server ----
 server <- function(input, output, session) {
-  #Explore Button
+  # Explore Button
   observeEvent(input$explore, {
     updateTabItems(
       session = session,
       inputId = "pages",
-      selected = "lsc")
+      selected = "lsc"
+    )
   })
-  #Pre-req Button
+  # Pre-req Button
   observeEvent(input$prereqs, {
     updateTabItems(
       session = session,
@@ -564,12 +577,13 @@ server <- function(input, output, session) {
       selected = "prereq"
     )
   })
-  #Explore1 Button
+  # Explore1 Button
   observeEvent(input$explore1, {
     updateTabItems(
       session = session,
       inputId = "pages",
-      selected = "lsc")
+      selected = "lsc"
+    )
   })
 
   ## Create reactive values for the dynamic plots
@@ -602,45 +616,52 @@ server <- function(input, output, session) {
   })
 
   # Plot for the Multiple Testing Caveat ----
-  #General Logic: Create a user-specified number of hypothesis tests' p-values.
-  #Compare those p-values to a user-specified threshold for significance.
+  # General Logic: Create a user-specified number of hypothesis tests' p-values.
+  # Compare those p-values to a user-specified threshold for significance.
   output$pplotMTC <- renderPlot({
     validate(need(input$mtcTests > 0,
-                  message = "Please input a valid number of tests"))
+      message = "Please input a valid number of tests"
+    ))
     validate(need(input$mtcAlpha > 0,
-                  message = "Please input a valid threshold"))
-    a1 = aMTC() #Get threshold
-    n1 = nMTC() #Get sample size
-    x1 = 1:n1 #Create sample ids
-    bp = 0 #Set counters
-    rp = 0
-    r = numeric(n1) #Create pvalue vector
-    sim1 = rbinom(n = n1,
-                  size = 1,
-                  prob = 1 - a1) #Use Binomial to generate n2 Bernoulli trials;
-    #Success means p-value will be greater than threshold
+      message = "Please input a valid threshold"
+    ))
+    a1 <- aMTC() # Get threshold
+    n1 <- nMTC() # Get sample size
+    x1 <- 1:n1 # Create sample ids
+    bp <- 0 # Set counters
+    rp <- 0
+    r <- numeric(n1) # Create pvalue vector
+    sim1 <- rbinom(
+      n = n1,
+      size = 1,
+      prob = 1 - a1
+    ) # Use Binomial to generate n2 Bernoulli trials;
+    # Success means p-value will be greater than threshold
     for (w in 1:n1) {
       if (sim1[w] == 1) {
-        r[w] = runif(1, (a1 + 0.001) , 0.999)
-        bp = bp + 1
+        r[w] <- runif(1, (a1 + 0.001), 0.999)
+        bp <- bp + 1
       }
-      else{
-        r[w] = runif(1, 0.0001, a1)
-        rp = rp + 1
+      else {
+        r[w] <- runif(1, 0.0001, a1)
+        rp <- rp + 1
       }
-    } #generate p-values
-    #Generate the plot
+    } # generate p-values
+    # Generate the plot
     ggplot(
       data = data.frame(x1, r),
-      mapping = aes(x = x1, y = r)) +
+      mapping = aes(x = x1, y = r)
+    ) +
       geom_point(
         color = ifelse(r <= a1, psuPalette[7], psuPalette[1]),
         shape = 19,
         size = 3
       ) +
-      geom_line(y = a1,
-                color = boastPalette[3],
-                size = 1) +
+      geom_line(
+        y = a1,
+        color = boastPalette[3],
+        size = 1
+      ) +
       ylim(0, 1) +
       labs(
         title = bquote(
@@ -651,59 +672,64 @@ server <- function(input, output, session) {
         caption = paste("There are", bp, "blue points and", rp, "red points")
       ) +
       theme(
-        panel.background = element_rect(fill = 'white', colour = 'black'),
+        panel.background = element_rect(fill = "white", colour = "black"),
         plot.caption = element_text(size = 18),
         text = element_text(size = 18)
       )
   })
 
-  #Plot for the Large Sample Caveat ----
-  #General Logic: Under a null hypothesis of no additive difference,
-  #the SAM's distribution converges in law to N(0,Var[X]/N).
-  #Using a user-specified no-practical-difference value, generate 100 observed differences.
-  #Treating these differences as values of the SAM, under the null,
-  #generate the one-tail p-values. Compare the p-values to a user-specified
-  #threshold for determining significance.
+  # Plot for the Large Sample Caveat ----
+  # General Logic: Under a null hypothesis of no additive difference,
+  # the SAM's distribution converges in law to N(0,Var[X]/N).
+  # Using a user-specified no-practical-difference value, generate 100 observed differences.
+  # Treating these differences as values of the SAM, under the null,
+  # generate the one-tail p-values. Compare the p-values to a user-specified
+  # threshold for determining significance.
   output$pplotLSC <- renderPlot({
     validate(need(input$lscSize > 0,
-                  message = "Please input a valid sample size"))
+      message = "Please input a valid sample size"
+    ))
     validate(need(input$lscAlpha > 0,
-                  message = "Please input a valid threshold"))
-    delta2 = dLSC() #Get the no-practical difference
-    n2 = nLSC() #Get the sample size
-    a2 = aLSC() #Get threshold
-    #Assuming two, equally sized groups, and Hedge's g effect size
-    nc2 = sqrt((n2 / 2) * (n2 / 2) / n2) * delta2 #Calculate non-centrality parameter
-    odiffs2 = rt(n = 100, df = n2 - 2, ncp = nc2) #Generate observed differences
-    ps2 = pnorm(
+      message = "Please input a valid threshold"
+    ))
+    delta2 <- dLSC() # Get the no-practical difference
+    n2 <- nLSC() # Get the sample size
+    a2 <- aLSC() # Get threshold
+    # Assuming two, equally sized groups, and Hedge's g effect size
+    nc2 <- sqrt((n2 / 2) * (n2 / 2) / n2) * delta2 # Calculate non-centrality parameter
+    odiffs2 <- rt(n = 100, df = n2 - 2, ncp = nc2) # Generate observed differences
+    ps2 <- pnorm(
       abs(odiffs2),
       mean = 0,
       sd = (15 / sqrt(n2)),
       lower.tail = FALSE
-    )  #Calculate the associated p-values
-    bp = 0
-    rp = 0
-    x1 = 1:100
+    ) # Calculate the associated p-values
+    bp <- 0
+    rp <- 0
+    x1 <- 1:100
     for (i in 1:100) {
       if (ps2[i] > a2) {
-        bp = bp + 1
+        bp <- bp + 1
       }
-      else{
-        rp = rp + 1
+      else {
+        rp <- rp + 1
       }
     }
-    #Generate the plot
+    # Generate the plot
     ggplot(
       data = data.frame(x1, ps2),
-      mapping = aes(x = x1, y = ps2)) +
+      mapping = aes(x = x1, y = ps2)
+    ) +
       geom_point(
         color = ifelse(ps2 <= a2, psuPalette[7], psuPalette[1]),
         shape = 19,
         size = 3
       ) +
-      geom_line(y = a2,
-                color = boastPalette[3],
-                size = 1) +
+      geom_line(
+        y = a2,
+        color = boastPalette[3],
+        size = 1
+      ) +
       ylim(0, 0.5) +
       labs(
         title = bquote("The p-values for 100 hypothesis tests at " ~ alpha == .(a2)),
@@ -712,59 +738,64 @@ server <- function(input, output, session) {
         caption = paste("There are", bp, "blue points and", rp, "red points")
       ) +
       theme(
-        panel.background = element_rect(fill = 'white', colour = 'black'),
+        panel.background = element_rect(fill = "white", colour = "black"),
         plot.caption = element_text(size = 18),
         text = element_text(size = 18)
       )
   })
 
-  #Plot for the Small Sample Size Caveat ----
-  #General Logic: Under a null hypothesis of no additive difference,
-  #the SAM's distribution converges in law to N(0,Var[X]/N).
-  #Using a user-specified level of practical difference, generate 100 observed
-  #differences. Treating these differences as values of the SAM, under the null,
-  #generate the one-tail p-values. Compare the p-values to a user-specified
-  #threshold for determining significance.
+  # Plot for the Small Sample Size Caveat ----
+  # General Logic: Under a null hypothesis of no additive difference,
+  # the SAM's distribution converges in law to N(0,Var[X]/N).
+  # Using a user-specified level of practical difference, generate 100 observed
+  # differences. Treating these differences as values of the SAM, under the null,
+  # generate the one-tail p-values. Compare the p-values to a user-specified
+  # threshold for determining significance.
   output$pplotSSC <- renderPlot({
     validate(need(input$sscSize > 3,
-                  message = "Please input a valid sample size"))
+      message = "Please input a valid sample size"
+    ))
     validate(need(input$sscAlpha > 0,
-                  message = "Please input a valid threshold"))
-    delta3 = dSSC() #Get the important effect size
-    n3 = nSSC() # Get the sample size
-    a3 = aSSC() # Get threshold
-    #Assuming two, equally sized groups, and Hedge's g effect size
-    nc3 = sqrt((n3 / 2) * (n3 / 2) / n3) * delta3 #Calculate non-centrality parameter
-    odiffs3 = rt(n = 100, df = n3 - 2, ncp = nc3) #Generate observed differences
-    ps3 = pnorm(
+      message = "Please input a valid threshold"
+    ))
+    delta3 <- dSSC() # Get the important effect size
+    n3 <- nSSC() # Get the sample size
+    a3 <- aSSC() # Get threshold
+    # Assuming two, equally sized groups, and Hedge's g effect size
+    nc3 <- sqrt((n3 / 2) * (n3 / 2) / n3) * delta3 # Calculate non-centrality parameter
+    odiffs3 <- rt(n = 100, df = n3 - 2, ncp = nc3) # Generate observed differences
+    ps3 <- pnorm(
       abs(odiffs3),
       mean = 0,
       sd = (15 / sqrt(n3)),
       lower.tail = FALSE
-    ) #Calculate the associated p-values
-    bp = 0
-    rp = 0
-    x1 = 1:100
+    ) # Calculate the associated p-values
+    bp <- 0
+    rp <- 0
+    x1 <- 1:100
     for (i in 1:100) {
       if (ps3[i] > a3) {
-        bp = bp + 1
+        bp <- bp + 1
       }
-      else{
-        rp = rp + 1
+      else {
+        rp <- rp + 1
       }
     }
-    #Generate the plot
+    # Generate the plot
     ggplot(
       data = data.frame(x1, ps3),
-      mapping = aes(x = x1, y = ps3)) +
+      mapping = aes(x = x1, y = ps3)
+    ) +
       geom_point(
         color = ifelse(ps3 <= a3, psuPalette[7], psuPalette[1]),
         shape = 19,
         size = 3
       ) +
-      geom_line(y = a3,
-                color = boastPalette[3],
-                size = 1) +
+      geom_line(
+        y = a3,
+        color = boastPalette[3],
+        size = 1
+      ) +
       ylim(0, 0.5) +
       labs(
         title = bquote("The p-values for 100 hypothesis tests at " ~ alpha == .(a3)),
@@ -773,7 +804,7 @@ server <- function(input, output, session) {
         caption = paste("There are", bp, "blue points and", rp, "red points")
       ) +
       theme(
-        panel.background = element_rect(fill = 'white', colour = 'black'),
+        panel.background = element_rect(fill = "white", colour = "black"),
         plot.caption = element_text(size = 18),
         text = element_text(size = 18)
       )
