@@ -17,10 +17,7 @@ ui <- list(
       titleWidth = 250,
       tags$li(
         class = "dropdown",
-        tags$a(
-          target = "_blank", icon("comments"),
-          href = "https://pennstate.qualtrics.com/jfe/form/SV_7TLIkFtJEJ7fEPz?appName=Significance_Testing_Caveats"
-        )
+        boastUtils::surveyLink(name = "Significance_Testing_Caveats")
       ),
       tags$li(
         class = "dropdown",
@@ -42,10 +39,10 @@ ui <- list(
         menuItem("Multiple Testing Caveat", tabName = "mtc", icon = icon("wpexplorer")),
         menuItem("References", tabName = "Ref", icon = icon("leanpub"))
       ),
-      # PSU logo
+      # Sidebar Footer
       tags$div(
         class = "sidebar-logo",
-        boastUtils::psu_eberly_logo("reversed")
+        boastUtils::sidebarFooter()
       )
     ),
 
@@ -55,7 +52,7 @@ ui <- list(
         # Overview Page ----
         tabItem(
           tabName = "overview",
-          h1("Significance Testing Canveats"),
+          h1("Significance Testing Caveats"),
           p(
             "In this app you will explore three important issues to keep in mind
           when you are engaged in null hypothesis significance testing.
@@ -278,8 +275,8 @@ ui <- list(
                   inputId = "lscDiff",
                   label = "Decrease in duration seen as worthless",
                   min = 0,
-                  max = 0.2,
-                  value = 0.1,
+                  max = 0.5,
+                  value = 0.25,
                   step = 0.01,
                   post = " days"
                 ),
@@ -298,7 +295,19 @@ ui <- list(
                   max = 1000,
                   value = 10,
                   step = 5
-                )
+                ),
+                # bsButton(
+                #   inputId = "lscAnimate",
+                #   label = "Run Tests",
+                #   icon = icon("play"),
+                #   size = "large"
+                # ),
+                # bsButton(
+                #   inputId = "lscPlot",
+                #   label = "Plot",
+                #   icon = icon("bolt"),
+                #   size = "large"
+                # )
               )
             ),
             column(
@@ -332,7 +341,9 @@ ui <- list(
             are all p-values that are at or below your selected threshold. Keep
             in mind that you've stipulated that any actual effect of the
             medication has no practical implication (i.e., is worthless)."
-          )
+          ),
+          hr(),
+          plotOutput("pplotLSCNEW")
         ),
         # Small Sample Caveat Page ----
         tabItem(
@@ -374,8 +385,8 @@ ui <- list(
                   label = "Decrease in duration seen as worthwhile",
                   min = 1,
                   max = 5,
-                  value = 1,
-                  step = 0.05,
+                  value = 3,
+                  step = 0.25,
                   post = " days"
                 ),
                 sliderInput(
@@ -691,12 +702,11 @@ server <- function(input, output, session) {
     n2 <- nLSC() # Get the sample size
     a2 <- aLSC() # Get threshold
     # Assuming two, equally sized groups, and Hedge's g effect size
-    nc2 <- sqrt((n2 / 2) * (n2 / 2) / n2) * delta2 # Calculate non-centrality parameter
+    nc2 <- sqrt((n2 / 4)) * delta2 # Calculate non-centrality parameter
     odiffs2 <- rt(n = 100, df = n2 - 2, ncp = nc2) # Generate observed differences
-    ps2 <- pnorm(
-      abs(odiffs2),
-      mean = 0,
-      sd = (15 / sqrt(n2)),
+    ps2 <- pt(
+      odiffs2,
+      df = n2 - 2,
       lower.tail = FALSE
     ) # Calculate the associated p-values
     bp <- 0
@@ -738,6 +748,86 @@ server <- function(input, output, session) {
         text = element_text(size = 18)
       )
   })
+
+  ## NEW Large Sample Caveat ----
+  # observeEvent(
+  #   eventExpr = input$lscPlot,
+  #   handlerExpr = {
+  #     #lscData(generateData())
+  #
+  #     lscData <- data.frame(
+  #       id = seq.int(1, 100, 1),
+  #       pvalue = runif(100, 0, 1)
+  #     )
+  #
+  #     bp <- nrow(lscData[which(lscData$pvalue > input$lscAlpha),])
+  #     rp <- 100 - bp
+  #
+  #     output$pplotLSCNEW <- renderPlot(
+  #       expr = {
+  #         validate(
+  #           need(
+  #             expr = input$lscPlot > 0,
+  #             message = "Set the controls and then press Plot"
+  #           ),
+  #           need(
+  #             expr = input$lscSize > 0,
+  #             message = "Please input a valid sample size"
+  #           ),
+  #           need(
+  #             expr = input$lscAlpha > 0,
+  #             message = "Please input a valid threshold"
+  #           )
+  #         )
+  #         ggplot(
+  #           data = lscData,
+  #           mapping = aes(
+  #             x = id,
+  #             y = pvalue,
+  #             color = ifelse(
+  #               test  = pvalue <= input$lscAlpha,
+  #               yes = "red",
+  #               no = "blue"
+  #             )
+  #           )
+  #         ) +
+  #           geom_point(
+  #             shape = 19,
+  #             size = 3,
+  #             na.rm = TRUE
+  #           ) +
+  #           geom_line(
+  #             y = input$lscAlpha,
+  #             color = boastPalette[3],
+  #             size = 1
+  #           ) +
+  #           ylim(0, 1) +
+  #           labs(
+  #             title = bquote(
+  #               "The p-values for 100 hypothesis tests at " ~ alpha == .(input$lscAlpha)
+  #             ),
+  #             y = "p-value",
+  #             x = "Simulation",
+  #             caption = paste("There are", bp, "blue points and", rp, "red points")
+  #           ) +
+  #           theme(
+  #             panel.background = element_rect(fill = "white", colour = "black"),
+  #             plot.caption = element_text(size = 18),
+  #             text = element_text(size = 18),
+  #             legend.position = "none"
+  #           ) +
+  #           scale_color_manual(
+  #             values = c("red" = psuPalette[7], "blue" = psuPalette[1])
+  #           )
+  #       },
+  #       alt = "Large Sample Caveat Plot"
+  #     )
+  #
+  #   },
+  #   ignoreNULL = FALSE,
+  #   ignoreInit = FALSE
+  # )
+
 
   # Plot for the Small Sample Size Caveat ----
   # General Logic: Under a null hypothesis of no additive difference,
@@ -807,4 +897,4 @@ server <- function(input, output, session) {
 }
 
 # Boast app call ----
-boastUtils::boastApp(ui = ui, server = server)
+boastUtils::boastApp(ui = ui, server = server, config = list(log = TRUE))
